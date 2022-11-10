@@ -1,4 +1,17 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
 
 @Injectable()
-export class UserService {}
+export class UserService {
+    constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
+
+    getAll(): Promise<User[]> {
+        return this.userRepository.createQueryBuilder("user").leftJoinAndSelect("user.tenant", "tenant").getMany();
+    }
+
+    createOne(user: User): Promise<User> {
+        return this.userRepository.save(user);
+    }
+}

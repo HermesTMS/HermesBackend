@@ -1,5 +1,5 @@
 export enum UserType {
-    MASTER,
-    SUB_USER,
-    ADMIN
+    MASTER = "master",
+    SUB_USER = "sub_user",
+    ADMIN = "admin"
 }
