@@ -1,5 +1,5 @@
 import { User } from "src/user/user.entity";
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
 
 @Entity()
 export class Tenant {
@@ -7,8 +7,13 @@ export class Tenant {
     id: string;
     @Column()
     companyName: string;
+    
+    // @OneToMany(() => User, user => user.tenant)
+    // users: User[];
 
-    @OneToOne(() => User, { eager: true })
-    @JoinColumn()
-    masterUser: User;
+    // @OneToOne(() => User, { eager: true })
+    // @JoinColumn()
+    // masterUser: User;
+
+    // Add OneToMany relationship
 }

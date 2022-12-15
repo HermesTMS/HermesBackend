@@ -11,8 +11,18 @@ export class UserController {
         return this.userService.getAll();
     }
 
+    @Get('tenanted')
+    getAllTenanted(): Promise<User[]> {
+        return this.userService.getAllTenanted();
+    }
+
     @Post()
     createOne(@Body() user: User): Promise<User> {
         return this.userService.createOne(user);
+    }
+
+    @Post('tenanted')
+    createTenanted(@Body() user: User): Promise<User> {
+        return this.userService.create(user);
     }
 }

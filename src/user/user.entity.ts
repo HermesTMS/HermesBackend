@@ -1,8 +1,8 @@
 import { Tenant } from "src/tenant/tenant.entity";
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { UserType } from "./user.type";
 
-@Entity()
+@Entity('users')
 export class User {
     @PrimaryGeneratedColumn("uuid")
     id: string;
@@ -20,6 +20,13 @@ export class User {
     position: string;
     @Column()
     type: UserType;
-    @OneToOne(() => Tenant, tenant => tenant.masterUser)
-    tenant: Tenant;
+    @Column()
+    masterUser: boolean;
+    // Modify this to ManyToOne
+    @Column({
+        type: 'text',
+        default: () => "current_setting('hermestms.current_tenant')::text"
+    })
+    // @ManyToOne(() => Tenant, tenant => tenant.users)
+    tenantId: string;
 }
