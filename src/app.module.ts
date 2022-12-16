@@ -8,6 +8,18 @@ import { UserModule } from './user/user.module';
 import { Tenant } from './tenant/tenant.entity';
 import { TenantMiddleware } from './tenant/tenant.middleware';
 import { VehicleModule } from './vehicle/vehicle.module';
+import { TrailerModule } from './trailer/trailer.module';
+import { DriverModule } from './driver/driver.module';
+import { InvoiceModule } from './invoice/invoice.module';
+import { FileModule } from './file/file.module';
+import { ExpenseModule } from './expense/expense.module';
+import { EnsambleModule } from './ensamble/ensamble.module';
+import { OrderModule } from './order/order.module';
+import { NoteModule } from './note/note.module';
+import { AddressModule } from './address/address.module';
+import { ClientModule } from './client/client.module';
+import { PackageModule } from './package/package.module';
+import { ContactPersonModule } from './contact-person/contact-person.module';
 
 @Module({
   imports: [
@@ -23,7 +35,19 @@ import { VehicleModule } from './vehicle/vehicle.module';
     }),
     TenantModule,
     UserModule,
-    VehicleModule
+    VehicleModule,
+    TrailerModule,
+    DriverModule,
+    InvoiceModule,
+    FileModule,
+    ExpenseModule,
+    EnsambleModule,
+    OrderModule,
+    NoteModule,
+    AddressModule,
+    ClientModule,
+    PackageModule,
+    ContactPersonModule
   ],
   controllers: [AppController],
   providers: [AppService],
