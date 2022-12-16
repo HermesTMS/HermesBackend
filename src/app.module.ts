@@ -7,6 +7,7 @@ import { TenantModule } from './tenant/tenant.module';
 import { UserModule } from './user/user.module';
 import { Tenant } from './tenant/tenant.entity';
 import { TenantMiddleware } from './tenant/tenant.middleware';
+import { VehicleModule } from './vehicle/vehicle.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { TenantMiddleware } from './tenant/tenant.middleware';
       // synchronize: true
     }),
     TenantModule,
-    UserModule
+    UserModule,
+    VehicleModule
   ],
   controllers: [AppController],
   providers: [AppService],
