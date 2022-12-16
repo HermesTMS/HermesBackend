@@ -1,8 +1,23 @@
-import { Column, Entity, ManyToOne } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class File {
-    @Column()
-    @ManyToOne()
+    @PrimaryGeneratedColumn('uuid')
+    fileId: string;
+    @Column({
+        nullable: false
+    })
+    fileSize: string;
+    @Column({
+        nullable: false
+    })
+    fileName: string;
+    @Column({
+        nullable: false
+    })
+    fileLocation: string;
+    @Column({
+        nullable: false
+    })
     ownerUuid: string;
 }
