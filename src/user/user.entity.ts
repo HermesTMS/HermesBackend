@@ -1,4 +1,3 @@
-import { Tenant } from "src/tenant/tenant.entity";
 import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { UserType } from "./user.type";
 
