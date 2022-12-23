@@ -1,0 +1,60 @@
+# Query: onetomany
+# ContextLines: 1
+
+14 results - 5 files
+
+src/client/entities/client.entity.ts:
+   3  import { Invoice } from "src/invoice/entities/invoice.entity";
+   4: import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+   5  import { BankingDetails } from "./bankingDetails.entity";
+
+  34      legalRepresentative: ContactPerson;
+  35:     @OneToMany(() => Invoice, inv => inv.client)
+  36      invoices: Invoice[];
+
+src/driver/entities/driver.entity.ts:
+   1  import { User } from "src/user/user.entity";
+   2: import { Column, JoinColumn, OneToMany, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+   3  import { DrivingCategories } from "./drivingCategories";
+
+  21      @Column()
+  22:     @OneToMany(() => File, file => file.ownerUuid)
+  23      documents: File[];
+
+src/invoice/entities/invoice.entity.ts:
+  2  import internal from "stream";
+  3: import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+  4  
+
+src/order/entities/order.entity.ts:
+   8  import { User } from "src/user/user.entity";
+   9: import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+  10  import { OrderStatus } from "./orderStatus";
+
+  16      @Column()
+  17:     @OneToMany(() => Address, addr => addr)
+  18      loadings: Address[];
+  19      @Column()
+  20:     @OneToMany(() => Address, addr => addr)
+  21      unloadings: Address[];
+
+  30      @Column()
+  31:     @OneToMany(() => Package, pack => pack.order)
+  32      goods: Package[];
+
+  38      priceKm: number;
+  39:     @OneToMany(() => Expense, expense => expense)
+  40      expenses: Expense[];
+
+  48      createdAt: Date;
+  49:     @OneToMany(() => Invoice, inv => inv)
+  50      invoices: Invoice[];
+  51:     @OneToMany(() => File, file => file)
+  52      files: File[];
+  53:     @OneToMany(() => Note, note => note)
+  54      notes: Note[];
+
+src/tenant/tenant.entity.ts:
+  1  import { User } from "src/user/user.entity";
+  2: import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique } from "typeorm";
+  3  

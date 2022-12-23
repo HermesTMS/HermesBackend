@@ -20,6 +20,19 @@ import { AddressModule } from './address/address.module';
 import { ClientModule } from './client/client.module';
 import { PackageModule } from './package/package.module';
 import { ContactPersonModule } from './contact-person/contact-person.module';
+import { Vehicle } from './vehicle/vehicle.entity';
+import { Package } from './package/entities/package.entity';
+import { Order } from './order/entities/order.entity';
+import { Trailer } from './trailer/entities/trailer.entity';
+import { Note } from './note/entities/note.entity';
+import { Invoice } from './invoice/entities/invoice.entity';
+import { Driver } from './driver/entities/driver.entity';
+import { Address } from './address/entities/address.entity';
+import { Client } from './client/entities/client.entity';
+import { Expense } from './expense/entities/expense.entity';
+import { Ensamble } from './ensamble/entities/ensamble.entity';
+import { ContactPerson } from './contact-person/entities/contact-person.entity';
+import { File } from './file/entities/file.entity';
 
 @Module({
   imports: [
@@ -27,11 +40,13 @@ import { ContactPersonModule } from './contact-person/contact-person.module';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'hermestms',
-      password: 'hermestms',
+      // username: 'hermestms',
+      // password: 'hermestms',
+      username: 'postgres',
+      password: 'fortuna246',
       database: 'hermes_tms',
-      entities: [User, Tenant],
-      // synchronize: true
+      entities: [User, Tenant, Vehicle, Package, Order, Trailer, Note, File, Invoice, Driver, Address, Client, Expense, Ensamble, ContactPerson],
+      synchronize: true
     }),
     TenantModule,
     UserModule,

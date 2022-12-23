@@ -7,13 +7,4 @@ export class Tenant {
     id: string;
     @Column()
     companyName: string;
-    
-    // @OneToMany(() => User, user => user.tenant)
-    // users: User[];
-
-    // @OneToOne(() => User, { eager: true })
-    // @JoinColumn()
-    // masterUser: User;
-
-    // Add OneToMany relationship
 }

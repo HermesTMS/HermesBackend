@@ -14,11 +14,8 @@ export class Driver {
     drivingCategories: DrivingCategories[];
 
     // relations
-    @Column()
     @OneToOne(() =>  User)
-    @JoinColumn()
     userProfile: User;
-    @Column()
     @OneToMany(() => File, file => file.ownerUuid)
     documents: File[];
 }
