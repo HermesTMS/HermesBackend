@@ -36,6 +36,5 @@ export class Vehicle {
         default: () => "current_setting('hermestms.current_tenant')::text",
         nullable: false
     })
-    // @ManyToOne(() => Tenant, tenant => tenant.users)
     tenantId: string;
 }

@@ -12,4 +12,10 @@ export class BankingDetails {
     swift: string;
     @Column({ nullable: false })
     currency: string;
+    @Column({
+        type: 'text',
+        default: () => "current_setting('hermestms.current_tenant')::text",
+        nullable: false
+    })
+    tenantId: string;
 }

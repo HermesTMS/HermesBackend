@@ -33,6 +33,7 @@ import { Expense } from './expense/entities/expense.entity';
 import { Ensamble } from './ensamble/entities/ensamble.entity';
 import { ContactPerson } from './contact-person/entities/contact-person.entity';
 import { File } from './file/entities/file.entity';
+import { BankingDetails } from './client/entities/bankingDetails.entity';
 
 @Module({
   imports: [
@@ -45,7 +46,7 @@ import { File } from './file/entities/file.entity';
       username: 'postgres',
       password: 'fortuna246',
       database: 'hermes_tms',
-      entities: [User, Tenant, Vehicle, Package, Order, Trailer, Note, File, Invoice, Driver, Address, Client, Expense, Ensamble, ContactPerson],
+      entities: [User, Tenant, Vehicle, Package, Order, Trailer, Note, File, Invoice, Driver, Address, Client, Expense, Ensamble, ContactPerson, BankingDetails],
       synchronize: true
     }),
     TenantModule,

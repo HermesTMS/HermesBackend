@@ -1,6 +1,6 @@
 import { Order } from "src/order/entities/order.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { fileURLToPath } from "url";
+import { File } from "src/file/entities/file.entity";
 
 @Entity()
 export class Package {
@@ -18,4 +18,10 @@ export class Package {
     order: Order;
     @ManyToOne(() => File, file => file)
     files: File[];
+    @Column({
+        type: 'text',
+        default: () => "current_setting('hermestms.current_tenant')::text",
+        nullable: false
+    })
+    tenantId: string;
 }

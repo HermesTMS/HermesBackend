@@ -20,4 +20,10 @@ export class File {
         nullable: false
     })
     ownerUuid: string;
+    @Column({
+        type: 'text',
+        default: () => "current_setting('hermestms.current_tenant')::text",
+        nullable: false
+    })
+    tenantId: string;
 }

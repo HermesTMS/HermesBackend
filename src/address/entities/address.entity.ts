@@ -24,4 +24,10 @@ export class Address {
     sector: string;
     @Column()
     description: string;
+    @Column({
+        type: 'text',
+        default: () => "current_setting('hermestms.current_tenant')::text",
+        nullable: false
+    })
+    tenantId: string;
 }

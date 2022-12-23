@@ -14,4 +14,10 @@ export class ContactPerson {
     email: string;
     @Column({ nullable: false })
     phone: string;
+    @Column({
+        type: 'text',
+        default: () => "current_setting('hermestms.current_tenant')::text",
+        nullable: false
+    })
+    tenantId: string;
 }

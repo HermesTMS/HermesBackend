@@ -1,7 +1,7 @@
 import { Address } from "src/address/entities/address.entity";
 import { ContactPerson } from "src/contact-person/entities/contact-person.entity";
 import { Invoice } from "src/invoice/entities/invoice.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { BankingDetails } from "./bankingDetails.entity";
 
 @Entity()
@@ -12,13 +12,9 @@ export class Client {
         nullable: false
     })
     companyName: string;
-    @Column({
-        nullable: false
-    })
+    @OneToMany(() => ContactPerson, cp => cp)
     contactPerson: ContactPerson[];
-    @Column({
-        nullable: false
-    })
+    @OneToMany(() => Address, adr => adr)
     address: Address;
     @Column({
         nullable: false
@@ -28,10 +24,16 @@ export class Client {
         nullable: false
     })
     registrationId: string;
-    @Column()
+    @OneToOne(() => BankingDetails)
     bankingDetails: BankingDetails;
-    @Column()
+    @OneToOne(() => ContactPerson)
     legalRepresentative: ContactPerson;
     @OneToMany(() => Invoice, inv => inv.client)
     invoices: Invoice[];
+    @Column({
+        type: 'text',
+        default: () => "current_setting('hermestms.current_tenant')::text",
+        nullable: false
+    })
+    tenantId: string;
 }

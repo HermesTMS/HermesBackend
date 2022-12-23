@@ -6,6 +6,7 @@ import { Invoice } from "src/invoice/entities/invoice.entity";
 import { Note } from "src/note/entities/note.entity";
 import { Package } from "src/package/entities/package.entity";
 import { User } from "src/user/user.entity";
+import { File } from "src/file/entities/file.entity";
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OrderStatus } from "./orderStatus";
 
@@ -49,4 +50,10 @@ export class Order {
     notes: Note[];
     @OneToOne(() => Ensamble)
     ensamble: Ensamble;
+    @Column({
+        type: 'text',
+        default: () => "current_setting('hermestms.current_tenant')::text",
+        nullable: false
+    })
+    tenantId: string;
 }

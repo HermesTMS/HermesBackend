@@ -1,7 +1,7 @@
 import { Driver } from "src/driver/entities/driver.entity";
 import { Trailer } from "src/trailer/entities/trailer.entity";
 import { Vehicle } from "src/vehicle/vehicle.entity";
-import { Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, OneToOne, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
 export class Ensamble {
@@ -13,4 +13,10 @@ export class Ensamble {
     trailer: Trailer;
     @OneToOne(() => Vehicle)
     vehicle: Vehicle;
+    @Column({
+        type: 'text',
+        default: () => "current_setting('hermestms.current_tenant')::text",
+        nullable: false
+    })
+    tenantId: string;
 }

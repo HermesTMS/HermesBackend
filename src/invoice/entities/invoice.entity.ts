@@ -1,10 +1,10 @@
 import { Client } from "src/client/entities/client.entity";
 import internal from "stream";
-import { Column, Entity, ManyToOne, OneToMany } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 
 @Entity()
 export class Invoice {
-    @Column({ nullable: false })
+    @PrimaryColumn()
     invoiceNumber: string;
     @Column({ nullable: false })
     amount: number;
@@ -18,4 +18,10 @@ export class Invoice {
     total: number;
     @ManyToOne(() => Client, client => client.invoices)
     client: Client;
+    @Column({
+        type: 'text',
+        default: () => "current_setting('hermestms.current_tenant')::text",
+        nullable: false
+    })
+    tenantId: string;
 }
