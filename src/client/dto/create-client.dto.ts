@@ -1,1 +1,5 @@
-export class CreateClientDto {}
+export class CreateClientDto {
+    companyName: string;
+    taxId: string;
+    registrationId: string;
+}

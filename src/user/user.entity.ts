@@ -26,6 +26,5 @@ export class User {
         type: 'text',
         default: () => "current_setting('hermestms.current_tenant')::text"
     })
-    // @ManyToOne(() => Tenant, tenant => tenant.users)
     tenantId: string;
 }

@@ -10,7 +10,7 @@ import { File } from "src/file/entities/file.entity";
 import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { OrderStatus } from "./orderStatus";
 
-@Entity()
+@Entity('orders')
 export class Order {
     @PrimaryGeneratedColumn('uuid')
     orderId: string;

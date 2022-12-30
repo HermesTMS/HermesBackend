@@ -41,13 +41,13 @@ import { BankingDetails } from './client/entities/bankingDetails.entity';
       type: 'postgres',
       host: 'localhost',
       port: 5432,
-      // username: 'hermestms',
-      // password: 'hermestms',
-      username: 'postgres',
-      password: 'fortuna246',
+      username: 'hermestms',
+      password: 'hermestms',
+      // username: 'postgres',
+      // password: 'fortuna246',
       database: 'hermes_tms',
       entities: [User, Tenant, Vehicle, Package, Order, Trailer, Note, File, Invoice, Driver, Address, Client, Expense, Ensamble, ContactPerson, BankingDetails],
-      synchronize: true
+      // synchronize: true
     }),
     TenantModule,
     UserModule,
