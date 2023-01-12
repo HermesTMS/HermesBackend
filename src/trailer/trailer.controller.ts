@@ -19,16 +19,16 @@ export class TrailerController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.trailerService.findOne(+id);
+    return this.trailerService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTrailerDto: UpdateTrailerDto) {
-    return this.trailerService.update(+id, updateTrailerDto);
+    return this.trailerService.update(id, updateTrailerDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.trailerService.remove(+id);
+    return this.trailerService.remove(id);
   }
 }

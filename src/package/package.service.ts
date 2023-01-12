@@ -1,26 +1,59 @@
 import { Injectable } from '@nestjs/common';
+import { Order } from 'src/order/entities/order.entity';
+import { TenantService } from 'src/tenant/tenant.service';
+import { DataSource } from 'typeorm';
 import { CreatePackageDto } from './dto/create-package.dto';
-import { UpdatePackageDto } from './dto/update-package.dto';
+import { Package } from './entities/package.entity';
 
 @Injectable()
 export class PackageService {
-  create(createPackageDto: CreatePackageDto) {
-    return 'This action adds a new package';
+  constructor(
+    private dataSource: DataSource,
+    private tenantService: TenantService
+  ) {}
+
+  async create(createPackageDto: CreatePackageDto) {
+    return await this.dataSource.transaction(async manager => {
+      const repo = manager.getRepository(Package);
+      await this.tenantService.setCurrentTenantOnRepository(repo);
+      const pack: Package = await repo.save(createPackageDto);
+
+      const orderRepo = manager.getRepository(Order);
+      await this.tenantService.setCurrentTenantOnRepository(orderRepo);
+      const order: Order = await orderRepo.findOne({
+        where: { orderId: createPackageDto.orderId },
+        relations: { goods: true }
+      });
+
+      order.goods.push(pack);
+      return pack;
+    });
   }
 
-  findAll() {
-    return `This action returns all package`;
+  async findAll() {
+    return await this.dataSource.transaction(async manager => {
+      const repo = manager.getRepository(Package);
+      await this.tenantService.setCurrentTenantOnRepository(repo);
+      return await repo.find({ relations: { order: true } });
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} package`;
+  async findOne(packageId: string) {
+    return await this.dataSource.transaction(async manager => {
+      const repo = manager.getRepository(Package);
+      await this.tenantService.setCurrentTenantOnRepository(repo);
+      return await repo.findOne({
+        where: { packageId },
+        relations: { order: true }
+      })
+    });
   }
 
-  update(id: number, updatePackageDto: UpdatePackageDto) {
-    return `This action updates a #${id} package`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} package`;
+  async remove(packageId: string) {
+    return await this.dataSource.transaction(async manager => {
+      const repo = manager.getRepository(Package);
+      await this.tenantService.setCurrentTenantOnRepository(repo);
+      return await repo.delete({ packageId });
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { Order } from "src/order/entities/order.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { File } from "src/file/entities/file.entity";
 
 @Entity()
@@ -16,7 +16,7 @@ export class Package {
     description: string;
     @ManyToOne(() => Order, order => order.goods)
     order: Order;
-    @ManyToOne(() => File, file => file)
+    @OneToMany(() => File, file => file.package)
     files: File[];
     @Column({
         type: 'text',

@@ -1,4 +1,5 @@
-import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Note } from "src/note/entities/note.entity";
+import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { UserType } from "./user.type";
 
 @Entity('users')
@@ -21,7 +22,8 @@ export class User {
     type: UserType;
     @Column()
     masterUser: boolean;
-    // Modify this to ManyToOne
+    @OneToMany(() => Note, note => note.creator)
+    notes: Note[];
     @Column({
         type: 'text',
         default: () => "current_setting('hermestms.current_tenant')::text"

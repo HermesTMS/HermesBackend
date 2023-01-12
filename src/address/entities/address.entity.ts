@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Client } from "src/client/entities/client.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Address {
@@ -24,6 +25,8 @@ export class Address {
     sector: string;
     @Column()
     description: string;
+    @ManyToOne(() => Client, client => client.address)
+    client: Client;
     @Column({
         type: 'text',
         default: () => "current_setting('hermestms.current_tenant')::text",

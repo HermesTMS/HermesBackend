@@ -1,26 +1,74 @@
 import { Injectable } from '@nestjs/common';
+import { File } from 'src/file/entities/file.entity';
+import { TenantService } from 'src/tenant/tenant.service';
+import { Connection } from 'typeorm';
 import { CreateDriverDto } from './dto/create-driver.dto';
 import { UpdateDriverDto } from './dto/update-driver.dto';
+import { Driver } from './entities/driver.entity';
 
 @Injectable()
 export class DriverService {
-  create(createDriverDto: CreateDriverDto) {
-    return 'This action adds a new driver';
+  constructor(
+    private tenantService: TenantService,
+    private connection: Connection
+  ) {}
+
+  async create(createDriverDto: CreateDriverDto) {
+    return await this.connection.transaction(async manager => {
+      const repo = manager.getRepository(Driver);
+      await this.tenantService.setCurrentTenantOnRepository(repo);
+      return await repo.save(createDriverDto);
+    });
   }
 
-  findAll() {
-    return `This action returns all driver`;
+  async findAll() {
+    return await this.connection.transaction(async manager => {
+      const repo = manager.getRepository(Driver);
+      await this.tenantService.setCurrentTenantOnRepository(repo);
+      return await repo.find();
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} driver`;
+  async findOne(driverId: string) {
+    return await this.connection.transaction(async manager => {
+      const repo = manager.getRepository(Driver);
+      await this.tenantService.setCurrentTenantOnRepository(repo);
+      return await repo.findOneBy({ driverId });
+    });
   }
 
-  update(id: number, updateDriverDto: UpdateDriverDto) {
-    return `This action updates a #${id} driver`;
+  async update(id: string, updateDriverDto: UpdateDriverDto) {
+    return await this.connection.transaction(async manager => {
+      const repo = manager.getRepository(Driver);
+      await this.tenantService.setCurrentTenantOnRepository(repo);
+      updateDriverDto.driverId = id;
+      return await repo.save(updateDriverDto);
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} driver`;
+  async remove(driverId: string) {
+    return await this.connection.transaction(async manager => {
+      const repo = manager.getRepository(Driver);
+      await this.tenantService.setCurrentTenantOnRepository(repo);
+      return await repo.delete({ driverId });
+    });
+  }
+
+  async addDocuments(fileId: string, driverId: string) {
+    return await this.connection.transaction(async manager => {
+      const fileRepo = manager.getRepository(File);
+      await this.tenantService.setCurrentTenantOnRepository(fileRepo);
+      const file: File = await fileRepo.findOneBy({ fileId });
+
+      const repo = manager.getRepository(Driver);
+      await this.tenantService.setCurrentTenantOnRepository(repo);
+      const driver: Driver = await repo.findOne({
+        where: { driverId },
+        relations: { documents: true }
+      });
+      
+      driver.documents.push(file);
+      return repo.save(driver);
+    });
   }
 }

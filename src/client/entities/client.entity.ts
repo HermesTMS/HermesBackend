@@ -1,7 +1,7 @@
 import { Address } from "src/address/entities/address.entity";
 import { ContactPerson } from "src/contact-person/entities/contact-person.entity";
 import { Invoice } from "src/invoice/entities/invoice.entity";
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, JoinTable } from "typeorm";
 import { BankingDetails } from "./bankingDetails.entity";
 
 @Entity()
@@ -12,10 +12,10 @@ export class Client {
         nullable: false
     })
     companyName: string;
-    @OneToMany(() => ContactPerson, cp => cp)
+    @OneToMany(() => ContactPerson, cp => cp.contactPersonId)
     contactPerson: ContactPerson[];
-    @OneToMany(() => Address, adr => adr)
-    address: Address;
+    @OneToMany(() => Address, adr => adr.client)
+    address: Address[];
     @Column({
         nullable: false
     })

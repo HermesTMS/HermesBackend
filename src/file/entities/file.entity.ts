@@ -1,4 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Driver } from "src/driver/entities/driver.entity";
+import { Package } from "src/package/entities/package.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('files')
 export class File {
@@ -16,10 +18,10 @@ export class File {
         nullable: false
     })
     fileLocation: string;
-    @Column({
-        nullable: false
-    })
-    ownerUuid: string;
+    @ManyToOne(() => Driver, driver => driver.documents)
+    driver: Driver;
+    @ManyToOne(() => Package, pack => pack.files)
+    package: Package;
     @Column({
         type: 'text',
         default: () => "current_setting('hermestms.current_tenant')::text",

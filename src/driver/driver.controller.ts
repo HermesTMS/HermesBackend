@@ -19,16 +19,21 @@ export class DriverController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.driverService.findOne(+id);
+    return this.driverService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDriverDto: UpdateDriverDto) {
-    return this.driverService.update(+id, updateDriverDto);
+    return this.driverService.update(id, updateDriverDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.driverService.remove(+id);
+    return this.driverService.remove(id);
+  }
+
+  @Post('addDocument/:id')
+  addDocument(@Param('id') driverId: string, @Body() documentId: string) {
+    return this.driverService.addDocuments(documentId, driverId);
   }
 }

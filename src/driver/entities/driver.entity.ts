@@ -16,7 +16,7 @@ export class Driver {
     // relations
     @OneToOne(() =>  User)
     userProfile: User;
-    @OneToMany(() => File, file => file.ownerUuid)
+    @OneToMany(() => File, file => file.driver)
     documents: File[];
     @Column({
         type: 'text',

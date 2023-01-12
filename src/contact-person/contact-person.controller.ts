@@ -3,7 +3,7 @@ import { ContactPersonService } from './contact-person.service';
 import { CreateContactPersonDto } from './dto/create-contact-person.dto';
 import { UpdateContactPersonDto } from './dto/update-contact-person.dto';
 
-@Controller('contact-person')
+@Controller('contactPerson')
 export class ContactPersonController {
   constructor(private readonly contactPersonService: ContactPersonService) {}
 
@@ -19,16 +19,21 @@ export class ContactPersonController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.contactPersonService.findOne(+id);
+    return this.contactPersonService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateContactPersonDto: UpdateContactPersonDto) {
-    return this.contactPersonService.update(+id, updateContactPersonDto);
+    return this.contactPersonService.update(id, updateContactPersonDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.contactPersonService.remove(+id);
+    return this.contactPersonService.remove(id);
+  }
+
+  @Post('addToClient/:id')
+  addToClient(@Param('id') id: string, @Body() clientId: string, @Body() isLegalRep: boolean = false) {
+    return this.contactPersonService.addContactPersonToClient(id, clientId, isLegalRep);
   }
 }

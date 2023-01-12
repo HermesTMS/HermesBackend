@@ -5,6 +5,10 @@ import { TrailerType } from "./trailerType";
 export class Trailer {
     @PrimaryColumn()
     vin: string;
+    @Column({
+        unique: true
+    })
+    registration: string;
     @Column()
     height: number;
     @Column()

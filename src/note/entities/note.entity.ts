@@ -7,6 +7,8 @@ export class Note {
     @PrimaryGeneratedColumn('uuid')
     noteId: string;
     @ManyToOne(() => Order, order => order.notes)
+    order: Order;
+    @ManyToOne(() => User, user => user.notes)
     creator: User;
     @Column()
     description: string;

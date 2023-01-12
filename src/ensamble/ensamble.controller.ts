@@ -19,16 +19,16 @@ export class EnsambleController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.ensambleService.findOne(+id);
+    return this.ensambleService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateEnsambleDto: UpdateEnsambleDto) {
-    return this.ensambleService.update(+id, updateEnsambleDto);
+    return this.ensambleService.update(id, updateEnsambleDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.ensambleService.remove(+id);
+    return this.ensambleService.remove(id);
   }
 }

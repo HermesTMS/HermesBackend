@@ -5,6 +5,8 @@ import { FuelType } from "./fuelType";
 export class Vehicle {
     @PrimaryColumn()
     vin: string;
+    @Column({ unique: true })
+    registration: string;
     @Column()
     make: string;
     @Column()
