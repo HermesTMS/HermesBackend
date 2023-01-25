@@ -32,7 +32,7 @@ export class Order {
     endTime: Date;
     @Column()
     priceKm: number;
-    @OneToMany(() => Expense, expense => expense)
+    @OneToMany(() => Expense, expense => expense.order)
     expenses: Expense[];
     @Column()
     description: string;
@@ -42,11 +42,11 @@ export class Order {
     status: OrderStatus;
     @Column()
     createdAt: Date;
-    @OneToMany(() => Invoice, inv => inv)
+    @OneToMany(() => Invoice, inv => inv.order)
     invoices: Invoice[];
-    @OneToMany(() => File, file => file)
+    @OneToMany(() => File, file => file.order)
     files: File[];
-    @OneToMany(() => Note, note => note)
+    @OneToMany(() => Note, note => note.order)
     notes: Note[];
     @OneToOne(() => Ensamble)
     ensamble: Ensamble;

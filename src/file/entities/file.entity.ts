@@ -1,4 +1,5 @@
 import { Driver } from "src/driver/entities/driver.entity";
+import { Order } from "src/order/entities/order.entity";
 import { Package } from "src/package/entities/package.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -22,6 +23,8 @@ export class File {
     driver: Driver;
     @ManyToOne(() => Package, pack => pack.files)
     package: Package;
+    @ManyToOne(() => Order, order => order.files)
+    order: Order
     @Column({
         type: 'text',
         default: () => "current_setting('hermestms.current_tenant')::text",
