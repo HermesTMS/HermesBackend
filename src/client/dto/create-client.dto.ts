@@ -1,5 +1,5 @@
 export class CreateClientDto {
-    companyName: string;
-    taxId: string;
-    registrationId: string;
+  companyName: string;
+  taxId: string;
+  registrationId: string;
 }

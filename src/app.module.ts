@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -46,8 +51,25 @@ import { BankingDetails } from './client/entities/bankingDetails.entity';
       username: 'postgres',
       password: 'fortuna246',
       database: 'hermes_tms',
-      entities: [User, Tenant, Vehicle, Package, Order, Trailer, Note, File, Invoice, Driver, Address, Client, Expense, Ensamble, ContactPerson, BankingDetails],
-      synchronize: true
+      entities: [
+        User,
+        Tenant,
+        Vehicle,
+        Package,
+        Order,
+        Trailer,
+        Note,
+        File,
+        Invoice,
+        Driver,
+        Address,
+        Client,
+        Expense,
+        Ensamble,
+        ContactPerson,
+        BankingDetails,
+      ],
+      synchronize: true,
     }),
     TenantModule,
     UserModule,
@@ -63,13 +85,15 @@ import { BankingDetails } from './client/entities/bankingDetails.entity';
     AddressModule,
     ClientModule,
     PackageModule,
-    ContactPersonModule
+    ContactPersonModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-      consumer.apply(TenantMiddleware).forRoutes({ path: "*", method: RequestMethod.ALL });
+    consumer
+      .apply(TenantMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }

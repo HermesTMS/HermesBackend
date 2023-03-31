@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { BankingDetailsService } from './banking-details.service';
 import { ClientService } from './client.service';
 import { BankingDetailsDto } from './dto/banking-details.dto';
@@ -11,7 +19,7 @@ import { Client } from './entities/client.entity';
 export class ClientController {
   constructor(
     private readonly clientService: ClientService,
-    private readonly bankingDetailsService: BankingDetailsService  
+    private readonly bankingDetailsService: BankingDetailsService,
   ) {}
 
   @Post()
@@ -25,7 +33,10 @@ export class ClientController {
   }
 
   @Post('address/:addressId')
-  assignAddressToClient(@Param('addressId') addressId: string, @Body() client: Client) {
+  assignAddressToClient(
+    @Param('addressId') addressId: string,
+    @Body() client: Client,
+  ) {
     return this.clientService.addAddress(client.clientId, addressId);
   }
 
@@ -55,7 +66,10 @@ export class ClientController {
   }
 
   @Patch('banking/:id')
-  updateBankingDetails(@Param('id') id: string, @Body() updateBankingDetailsDto: UpdateBankingDetailsDto) {
+  updateBankingDetails(
+    @Param('id') id: string,
+    @Body() updateBankingDetailsDto: UpdateBankingDetailsDto,
+  ) {
     return this.bankingDetailsService.update(id, updateBankingDetailsDto);
   }
 
